@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         String user = edtUserID.getText().toString();
 
         if(user.equals("phy")){
-            Intent myIntent = new Intent(this, MainScreenPatient.class);
+            Intent myIntent = new Intent(this, MainScreenPhysician.class);
             //Intent myIntent = new Intent(this, LinearChartActivity.class);
             startActivity(myIntent);
         } else{
