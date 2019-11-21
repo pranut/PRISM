@@ -129,14 +129,14 @@ public class LinearChartActivity extends AppCompatActivity implements OnSeekBarC
             llXAxis.setTextSize(10f);
             //llXAxis.setTypeface(tfRegular);
 
-            LimitLine ll1 = new LimitLine(150f, "Upper Limit");
+            LimitLine ll1 = new LimitLine(150f, "Base Line");
             ll1.setLineWidth(4f);
             ll1.enableDashedLine(10f, 10f, 0f);
             ll1.setLabelPosition(LimitLabelPosition.RIGHT_TOP);
             ll1.setTextSize(10f);
             //ll1.setTypeface(tfRegular);
 
-            LimitLine ll2 = new LimitLine(-30f, "Lower Limit");
+            LimitLine ll2 = new LimitLine(-30f, "Minimum Requirements");
             ll2.setLineWidth(4f);
             ll2.enableDashedLine(10f, 10f, 0f);
             ll2.setLabelPosition(LimitLabelPosition.RIGHT_BOTTOM);
@@ -190,7 +190,7 @@ public class LinearChartActivity extends AppCompatActivity implements OnSeekBarC
             chart.notifyDataSetChanged();
         } else {
             // create a dataset and give it a type
-            set1 = new LineDataSet(values, "DataSet 1");
+            set1 = new LineDataSet(values, "Pain Level");
 
             set1.setDrawIcons(false);
 

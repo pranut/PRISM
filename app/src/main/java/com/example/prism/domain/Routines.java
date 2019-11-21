@@ -17,6 +17,10 @@ public class Routines {
         return mName;
     }
 
+    public int getRoutineType(){
+        return routineType;
+    }
+
     public boolean isOnline() {
         return mOnline;
     }

@@ -43,13 +43,11 @@ public class PlaceholderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-        int index = 1;
-        if (getArguments() != null) {
-            index = getArguments().getInt(ARG_SECTION_NUMBER);
-        }
-        pageViewModel.setIndex(index);
-
-
+//        int index = 1;
+//        if (getArguments() != null) {
+//            index = getArguments().getInt(ARG_SECTION_NUMBER);
+//        }
+//        pageViewModel.setIndex(index);
 
     }
 
@@ -58,14 +56,6 @@ public class PlaceholderFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main_screen_patient, container, false);
-        final TextView textView = root.findViewById(R.id.section_label);
-
-        pageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         recyclerView = root.findViewById(R.id.rcv_routines);
 
@@ -74,11 +64,11 @@ public class PlaceholderFragment extends Fragment {
         //recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(container.getContext());
         recyclerView.setLayoutManager(layoutManager);
-
+        recyclerView.setHasFixedSize(true);
         // Initialize contacts
         routines = Routines.createRoutinesList(20);
         // Create adapter passing in the sample user data
-        RoutinesListAdapter adapter = new RoutinesListAdapter(routines);
+        RoutinesListAdapter adapter = new RoutinesListAdapter(routines, container.getContext());
         // Attach the adapter to the recyclerview to populate items
         recyclerView.setAdapter(adapter);
         // Set layout manager to position the items

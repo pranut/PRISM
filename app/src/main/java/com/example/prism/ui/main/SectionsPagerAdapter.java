@@ -26,9 +26,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return PTs_list.newInstance("asd","asddd");
-            case 1:
                 return PlaceholderFragment.newInstance(10);
+            case 1:
+                return PTs_list.newInstance("asd","asddd");
             default:
                 return null;
         }
