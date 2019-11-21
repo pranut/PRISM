@@ -18,11 +18,11 @@ public class MainActivity extends AppCompatActivity {
 
         edtUserID  = findViewById(R.id.edtUserID);
         edt_password = findViewById(R.id.edt_password);
-
     }
 
     public void loginUser(View view) {
         Intent myIntent = new Intent(this, MainScreenPatient.class);
+        //Intent myIntent = new Intent(this, LinearChartActivity.class);
         startActivity(myIntent);
     }
 
