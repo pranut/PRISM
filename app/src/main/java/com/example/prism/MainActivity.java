@@ -21,9 +21,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loginUser(View view) {
-        Intent myIntent = new Intent(this, MainScreenPatient.class);
-        //Intent myIntent = new Intent(this, LinearChartActivity.class);
-        startActivity(myIntent);
+
+        String user = edtUserID.getText().toString();
+
+        if(user.equals("phy")){
+            Intent myIntent = new Intent(this, MainScreenPatient.class);
+            //Intent myIntent = new Intent(this, LinearChartActivity.class);
+            startActivity(myIntent);
+        } else{
+            Intent myIntent = new Intent(this, MainScreenPatient.class);
+            //Intent myIntent = new Intent(this, LinearChartActivity.class);
+            startActivity(myIntent);
+        }
     }
 
 }
