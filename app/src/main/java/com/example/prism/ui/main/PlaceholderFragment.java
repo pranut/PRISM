@@ -11,14 +11,25 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prism.R;
+import com.example.prism.domain.Routines;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class PlaceholderFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private PageViewModel pageViewModel;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    ArrayList<Routines> routines;
 
     public static PlaceholderFragment newInstance(int index) {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -37,6 +48,9 @@ public class PlaceholderFragment extends Fragment {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
         pageViewModel.setIndex(index);
+
+
+
     }
 
     @Override
@@ -52,7 +66,27 @@ public class PlaceholderFragment extends Fragment {
                 textView.setText(s);
             }
         });
-        
+
+        recyclerView = root.findViewById(R.id.rcv_routines);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        //recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(container.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Initialize contacts
+        routines = Routines.createRoutinesList(20);
+        // Create adapter passing in the sample user data
+        RoutinesListAdapter adapter = new RoutinesListAdapter(routines);
+        // Attach the adapter to the recyclerview to populate items
+        recyclerView.setAdapter(adapter);
+        // Set layout manager to position the items
+
+        layoutManager = new LinearLayoutManager(container.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+
         return root;
     }
 }

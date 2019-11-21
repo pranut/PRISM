@@ -10,10 +10,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.prism.R;
 
-/**
- * A [FragmentPagerAdapter] that returns a fragment corresponding to
- * one of the sections/tabs/pages.
- */
+
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
@@ -29,11 +26,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return PlaceholderFragment.newInstance(10);
+                return PTs_list.newInstance("asd","asddd");
             case 1:
-                return PTs_list.newInstance("asd","asddd");
-            case 2:
-                return PTs_list.newInstance("asd","asddd");
+                return PlaceholderFragment.newInstance(10);
             default:
                 return null;
         }
