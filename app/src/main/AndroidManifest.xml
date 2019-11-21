@@ -13,13 +13,37 @@
             android:name=".MainScreenPatient"
             android:label="@string/title_activity_main_screen_patient"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".DvprsEntry"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"
+            android:largeHeap="true"
+            android:keepScreenOn="true">
+        </activity>
+
+        <activity
+            android:name=".DvprsLast"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"
+            android:largeHeap="true" >
+        </activity>
+
+        <provider
+            android:name="com.aware.providers.ESM_Provider"
+            android:authorities="${applicationId}.provider.esm"
+            android:exported="true"
+            android:readPermission="com.aware.READ_CONTEXT_DATA"
+            android:writePermission="com.aware.WRITE_CONTEXT_DATA"
+            >
+        </provider>
     </application>
 
 </manifest>
