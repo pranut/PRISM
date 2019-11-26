@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapter.RoutinesViewHolder> {
 
 
-    private ArrayList<Routines> mDataset;
+    private ArrayList<Routines> lstRoutines;
     private Context context;
 
 
@@ -40,15 +40,15 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            nameTextView = (TextView) itemView.findViewById(R.id.contact_name);
-            reportButton = (Button) itemView.findViewById(R.id.btnRoutineReport);
-            detailButton = (Button) itemView.findViewById(R.id.btnRoutineDetails);
+            nameTextView = itemView.findViewById(R.id.txtItemName);
+            reportButton = itemView.findViewById(R.id.btnRoutineReport);
+            detailButton = itemView.findViewById(R.id.btnRoutineDetails);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public RoutinesListAdapter(ArrayList<Routines> myDataset, Context context) {
-        mDataset = myDataset;
+        lstRoutines = myDataset;
         this.context = context;
     }
 
@@ -58,7 +58,7 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View contactView = inflater.inflate(R.layout.textview, parent, false);
+        View contactView = inflater.inflate(R.layout.list_item_routines, parent, false);
 
         // Return a new holder instance
         RoutinesViewHolder viewHolder = new RoutinesViewHolder(contactView);
@@ -69,7 +69,7 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
     @Override
     public void onBindViewHolder(RoutinesListAdapter.RoutinesViewHolder viewHolder, int position) {
         // Get the data model based on position
-        final Routines routines = mDataset.get(position);
+        final Routines routines = lstRoutines.get(position);
 
         // Set item views based on your views and data model
         TextView textView = viewHolder.nameTextView;
@@ -89,7 +89,7 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
         }
 
         Button detailsButton = viewHolder.detailButton;
-        detailsButton.setText("Details");
+        detailsButton.setText("Data");
         detailsButton.setEnabled(true);
 
 
@@ -107,6 +107,6 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return lstRoutines.size();
     }
 }

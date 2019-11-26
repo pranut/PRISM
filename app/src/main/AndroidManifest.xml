@@ -15,7 +15,7 @@
         <activity
             android:name=".MainScreenPatient"
             android:label="@string/title_activity_main_screen_patient"
-            android:theme="@style/Theme.NoTitle" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">PRISM</string>
+    <string name="patientTabTitle">My Treatment Plan</string>
+    <string name="physicianTabTitle">My Patients</string>
+
     <string name="title_activity_main_screen_patient">MainScreenPatient</string>
     <string name="tab_text_1">Routines</string>
     '<!--'<string name="tab_text_2">Recent</string>'-->'

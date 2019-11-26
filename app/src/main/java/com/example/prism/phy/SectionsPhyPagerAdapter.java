@@ -3,8 +3,6 @@ package com.example.prism.phy;
 import android.content.Context;
 
 import com.example.prism.R;
-import com.example.prism.ui.main.PTs_list;
-import com.example.prism.ui.main.PlaceholderFragment;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;

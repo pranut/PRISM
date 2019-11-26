@@ -20,14 +20,13 @@ public class MainScreenPatient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen_patient);
 
-
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
+
+        ViewPager viewPager = findViewById(R.id.vpContentItems);
         viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
+        TabLayout tabs = findViewById(R.id.tabPatient);
 
         tabs.setupWithViewPager(viewPager);
-
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {

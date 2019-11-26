@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,10 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.prism.R;
 import com.example.prism.domain.Routines;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class PlaceholderFragment extends Fragment {
+public class PhysicalTreatmentFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -31,8 +27,8 @@ public class PlaceholderFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<Routines> routines;
 
-    public static PlaceholderFragment newInstance(int index) {
-        PlaceholderFragment fragment = new PlaceholderFragment();
+    public static PhysicalTreatmentFragment newInstance(int index) {
+        PhysicalTreatmentFragment fragment = new PhysicalTreatmentFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_SECTION_NUMBER, index);
         fragment.setArguments(bundle);
@@ -53,8 +49,7 @@ public class PlaceholderFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main_screen_patient, container, false);
 
         recyclerView = root.findViewById(R.id.rcv_routines);
@@ -65,17 +60,19 @@ public class PlaceholderFragment extends Fragment {
         layoutManager = new LinearLayoutManager(container.getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+
         // Initialize contacts
         routines = Routines.createRoutinesList(20);
+
         // Create adapter passing in the sample user data
         RoutinesListAdapter adapter = new RoutinesListAdapter(routines, container.getContext());
+
         // Attach the adapter to the recyclerview to populate items
         recyclerView.setAdapter(adapter);
-        // Set layout manager to position the items
 
+        // Set layout manager to position the items
         layoutManager = new LinearLayoutManager(container.getContext());
         recyclerView.setLayoutManager(layoutManager);
-
 
         return root;
     }

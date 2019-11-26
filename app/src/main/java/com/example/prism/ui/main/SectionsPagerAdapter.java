@@ -26,9 +26,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return PlaceholderFragment.newInstance(10);
+                return PhysicalTreatmentFragment.newInstance(10);
             case 1:
-                return PTs_list.newInstance("asd","asddd");
+                return PatientNotificationsFragment.newInstance("asd","asddd");
             default:
                 return null;
         }

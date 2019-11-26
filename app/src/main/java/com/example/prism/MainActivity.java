@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,11 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(user.equals("phy")){
             Intent myIntent = new Intent(this, MainScreenPhysician.class);
-            //Intent myIntent = new Intent(this, LinearChartActivity.class);
             startActivity(myIntent);
         } else{
             Intent myIntent = new Intent(this, MainScreenPatient.class);
-            //Intent myIntent = new Intent(this, LinearChartActivity.class);
             startActivity(myIntent);
         }
     }
