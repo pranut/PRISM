@@ -1,4 +1,4 @@
-package com.example.prism.phy;
+package com.example.prism.ui.physician;
 
 import android.content.Context;
 import android.content.Intent;

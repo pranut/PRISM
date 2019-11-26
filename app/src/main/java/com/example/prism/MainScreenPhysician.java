@@ -5,8 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 
-import com.example.prism.phy.SectionsPhyPagerAdapter;
-import com.example.prism.ui.main.SectionsPagerAdapter;
+import com.example.prism.ui.physician.SectionsPhyPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainScreenPhysician extends AppCompatActivity {

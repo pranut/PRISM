@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-import com.example.prism.ui.main.SectionsPagerAdapter;
+import com.example.prism.ui.patient.SectionsPagerAdapter;
 
 public class MainScreenPatient extends AppCompatActivity {
 

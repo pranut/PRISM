@@ -1,4 +1,4 @@
-package com.example.prism.ui.main;
+package com.example.prism.ui.patient;
 
 import android.net.Uri;
 import android.os.Bundle;

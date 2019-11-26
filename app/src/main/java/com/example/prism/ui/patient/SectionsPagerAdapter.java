@@ -1,8 +1,6 @@
-package com.example.prism.phy;
+package com.example.prism.ui.patient;
 
 import android.content.Context;
-
-import com.example.prism.R;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -10,14 +8,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.prism.R;
 
-public class SectionsPhyPagerAdapter extends FragmentPagerAdapter {
+
+public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab1_phy, R.string.tab2_phy};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
     private final Context mContext;
 
-    public SectionsPhyPagerAdapter(Context context, FragmentManager fm) {
+    public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
     }
@@ -26,9 +26,9 @@ public class SectionsPhyPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return PatientsFragment.newInstance();
+                return PhysicalTreatmentFragment.newInstance(10);
             case 1:
-                return PatientsFragment.newInstance();
+                return PatientNotificationsFragment.newInstance("asd","asddd");
             default:
                 return null;
         }

@@ -1,4 +1,4 @@
-package com.example.prism.ui.main;
+package com.example.prism.ui.patient;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
