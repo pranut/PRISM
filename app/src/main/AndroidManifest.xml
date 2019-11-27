@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainScreenPhysician"></activity>
-        <activity android:name=".PainReport" />
-        <activity android:name=".LinearChartActivity" />
+        <activity android:name=".ui.patient.DataViewerActivity"></activity>
+        <activity android:name=".MainScreenPhysician" />
+        <activity android:name=".ui.patient.PainReport" />
+        <activity android:name=".ui.patient.LinearChartActivity" />
         <activity
             android:name=".MainScreenPatient"
             android:label="@string/title_activity_main_screen_patient"

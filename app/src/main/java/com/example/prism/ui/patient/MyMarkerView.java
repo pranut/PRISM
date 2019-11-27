@@ -1,4 +1,4 @@
-package com.example.prism;
+package com.example.prism.ui.patient;
 
 
 import android.annotation.SuppressLint;

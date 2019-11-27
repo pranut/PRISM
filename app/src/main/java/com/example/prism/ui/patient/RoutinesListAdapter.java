@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.prism.LinearChartActivity;
-import com.example.prism.PainReport;
 import com.example.prism.R;
 import com.example.prism.domain.Routines;
 
@@ -82,7 +80,7 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
             reportButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent myIntent = new Intent(context, PainReport.class);
+                    Intent myIntent = new Intent(context, DataViewerActivity.class);
                     context.startActivity(myIntent);
                 }
             });

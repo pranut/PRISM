@@ -1,4 +1,4 @@
-package com.example.prism;
+package com.example.prism.ui.patient;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,8 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.prism.R;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
@@ -43,6 +45,9 @@ public class LinearChartActivity extends AppCompatActivity implements OnSeekBarC
     private SeekBar seekBarX, seekBarY;
     private TextView tvX, tvY;
 
+    public static DataViewerFragment newInstance() {
+        return new DataViewerFragment();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

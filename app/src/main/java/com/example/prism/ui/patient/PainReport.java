@@ -1,4 +1,4 @@
-package com.example.prism;
+package com.example.prism.ui.patient;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.example.prism.R;
 
 public class PainReport extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 

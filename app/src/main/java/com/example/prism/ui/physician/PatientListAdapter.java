@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.prism.LinearChartActivity;
+import com.example.prism.ui.patient.LinearChartActivity;
 import com.example.prism.R;
 import com.example.prism.domain.Patient;
 
