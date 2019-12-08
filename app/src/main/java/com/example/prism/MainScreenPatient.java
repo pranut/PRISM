@@ -25,10 +25,10 @@ public class MainScreenPatient extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.vpContentItems);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabPatient);
-
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
 
+        // Setting floating email button behavior
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

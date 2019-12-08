@@ -33,14 +33,7 @@ import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link LineChartFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link LineChartFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+// Sample chart for testing only
 public class LineChartFragment extends Fragment implements OnChartValueSelectedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,8 +72,6 @@ public class LineChartFragment extends Fragment implements OnChartValueSelectedL
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
 
     }
 

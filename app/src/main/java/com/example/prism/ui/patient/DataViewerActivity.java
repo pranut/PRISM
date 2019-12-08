@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.prism.DatePickerFragment;
 import com.example.prism.R;
 
-public class DataViewerActivity extends AppCompatActivity implements LineChartFragment.OnFragmentInteractionListener {
+public class DataViewerActivity extends AppCompatActivity implements BarChartFragment.OnFragmentInteractionListener {
 
     DialogFragment newFragment = new DatePickerFragment();
 
@@ -22,7 +22,7 @@ public class DataViewerActivity extends AppCompatActivity implements LineChartFr
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, LineChartFragment.newInstance())
+                    .replace(R.id.container, BarChartFragment.newInstance())
                     .commitNow();
         }
 
