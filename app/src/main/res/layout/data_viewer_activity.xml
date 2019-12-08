@@ -11,64 +11,88 @@
 
     <FrameLayout
         android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="110dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="89dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="12dp"
-        android:text="Button"
-        app:layout_constraintStart_toEndOf="@+id/txtEndDate"
-        app:layout_constraintTop_toBottomOf="@+id/txvStartDateLabel" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/txtStartDate"
         android:layout_width="90dp"
         android:layout_height="36dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:inputType="date"
-        app:layout_constraintStart_toStartOf="@+id/txvStartDateLabel"
-        app:layout_constraintTop_toBottomOf="@+id/txvStartDateLabel" />
+        app:layout_constraintBottom_toTopOf="@+id/container"
+        app:layout_constraintStart_toEndOf="@+id/tvDateLabel" />
 
     <TextView
         android:id="@+id/txtEndDate"
         android:layout_width="84dp"
         android:layout_height="35dp"
+        android:layout_marginStart="16dp"
         android:ems="10"
         android:inputType="date"
-        app:layout_constraintStart_toStartOf="@+id/txvEndDateLabel"
+        app:layout_constraintStart_toEndOf="@+id/tvDateLabel2"
         app:layout_constraintTop_toTopOf="@+id/txtStartDate" />
 
     <TextView
-        android:id="@+id/txvStartDateLabel"
-        android:layout_width="55dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.019"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/tvDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="28dp"
+        android:text="From"
+        app:layout_constraintBottom_toTopOf="@+id/container"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/txvEndDateLabel"
-        android:layout_width="55dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="16dp"
-        android:text="End"
+        android:id="@+id/tvPresetDatesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="84dp"
+        android:text="Date Range"
+        app:layout_constraintBottom_toTopOf="@+id/container"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDateLabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="To"
+        app:layout_constraintStart_toEndOf="@+id/txtStartDate"
+        app:layout_constraintTop_toTopOf="@+id/txtStartDate" />
+
+    <Spinner
+        android:id="@+id/spnPresetDates"
+        android:layout_width="182dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/tvPresetDatesLabel"
+        app:layout_constraintTop_toTopOf="@+id/tvPresetDatesLabel" />
+
+    <TextView
+        android:id="@+id/tvDataViewerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step Count"
+        app:layout_constraintBottom_toTopOf="@+id/container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.214"
-        app:layout_constraintStart_toEndOf="@+id/txvStartDateLabel"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.188" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
