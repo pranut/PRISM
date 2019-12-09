@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.prism.R;
 import com.example.prism.domain.DataSummary;
+import com.example.prism.domain.DayDataSummary;
 import com.example.prism.domain.TimeEvent;
 import com.example.prism.domain.TimeSeriesPrivatizer;
+import com.example.prism.domain.WeekDataSummary;
 import com.example.prism.ui.custom.DayAxisValueFormatter;
 import com.example.prism.ui.custom.MyValueFormatter;
 import com.example.prism.ui.custom.XYMarkerView;
@@ -62,6 +64,12 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
     private BarChart chart;
     private TextView tvX, tvY;
 
+    private WeekDataSummary weekDataSummary;
+
+    private int dataViewResolution = 0;
+
+    private Context context;
+
     private OnFragmentInteractionListener mListener;
 
     public BarChartFragment() {
@@ -92,7 +100,7 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        context = container.getContext();
 
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_bar_chart, container, false);
@@ -169,21 +177,69 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         return root;
     }
 
-    private void setData(int count, float range, Context context) {
 
-        TimeSeriesPrivatizer priv = new TimeSeriesPrivatizer();
-        ArrayList<TimeEvent> rawData = priv.generateDummyData(count, range);
-        ArrayList<DataSummary> weekSummary = priv.getWeekAvgDataPoints(rawData);
+    private void updateData(int chartX) {
+        //chartX is x+1
+        ArrayList<DataSummary> daysWithinWeek  = weekDataSummary.getDaysWithinWeek(chartX-1);
 
         ArrayList<BarEntry> values = new ArrayList<>();
 
-        for (int i = 1; i < weekSummary.size()+1; i++) {
-            float val = weekSummary.get(i-1).getAvg();
+        for (int i = 1; i < daysWithinWeek.size()+1; i++) {
+            float val = daysWithinWeek.get(i-1).getAvg();
             if (Math.random() * 100 < 25) {
                 values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
             } else {
                 values.add(new BarEntry(i, val));
             }
+        }
+
+        BarDataSet set1;
+
+        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+            set1.setValues(values);
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
+
+        } else {
+            set1 = new BarDataSet(values, "Collected Steps");
+
+            set1.setDrawIcons(false);
+
+            int colorGreen = ContextCompat.getColor(context, android.R.color.holo_green_light);
+            //int coloRed = ContextCompat.getColor(context, android.R.color.holo_red_light);
+
+            List<GradientColor> gradientColors = new ArrayList<>();
+            gradientColors.add(new GradientColor(colorGreen, colorGreen));
+
+            set1.setGradientColors(gradientColors);
+
+            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+            dataSets.add(set1);
+
+            BarData data = new BarData(dataSets);
+            data.setValueTextSize(10f);
+            //data.setValueTypeface(tfLight);
+            data.setBarWidth(0.9f);
+
+            chart.setData(data);
+        }
+    }
+
+    private void setData(int count, float range, Context context) {
+
+        TimeSeriesPrivatizer priv = new TimeSeriesPrivatizer();
+        ArrayList<TimeEvent> rawData = priv.generateDummyData(count, range);
+        weekDataSummary = priv.getWeekAvgDataPoints(rawData);
+
+        ArrayList<DataSummary> dataPoints = weekDataSummary.weekDataPoints;
+
+        ArrayList<BarEntry> values = new ArrayList<>();
+
+        for (int i = 1; i < dataPoints.size()+1; i++) {
+            float val = dataPoints.get(i-1).getAvg();
+                //values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
+            values.add(new BarEntry(i, val));
         }
 
         BarDataSet set1;
@@ -325,6 +381,8 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 
         if (e == null)
             return;
+
+        this.updateData((int)e.getX());
 
         RectF bounds = onValueSelectedRectF;
         chart.getBarBounds((BarEntry) e, bounds);

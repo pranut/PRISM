@@ -34,12 +34,12 @@ public class TimeSeriesPrivatizer {
         return rawData;
     }
 
-    public ArrayList<DataSummary>  getWeekAvgDataPoints(ArrayList<TimeEvent> rawData){
+    public WeekDataSummary  getWeekAvgDataPoints(ArrayList<TimeEvent> rawData){
 
         WeekDataSummary wSumm = new WeekDataSummary();
-        ArrayList<DataSummary> weekSummaryData = wSumm.createWeekSummary(rawData);
+        wSumm.createWeekSummary(rawData);
 
-        return weekSummaryData;
+        return wSumm;
 
     }
 

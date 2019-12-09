@@ -14,6 +14,7 @@ public class DayDataSummary {
 
     }
 
+
     public ArrayList<DataSummary> createDaySummary(ArrayList<TimeEvent> rawData) {
 
         if (daySummary != null) {
