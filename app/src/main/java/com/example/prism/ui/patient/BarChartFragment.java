@@ -5,6 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.prism.R;
+import com.example.prism.domain.DataSummary;
+import com.example.prism.domain.TimeEvent;
+import com.example.prism.domain.TimeSeriesPrivatizer;
 import com.example.prism.ui.custom.DayAxisValueFormatter;
 import com.example.prism.ui.custom.MyValueFormatter;
 import com.example.prism.ui.custom.XYMarkerView;
@@ -168,13 +171,14 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 
     private void setData(int count, float range, Context context) {
 
-        float start = 1f;
+        TimeSeriesPrivatizer priv = new TimeSeriesPrivatizer();
+        ArrayList<TimeEvent> rawData = priv.generateDummyData(count, range);
+        ArrayList<DataSummary> weekSummary = priv.getWeekAvgDataPoints(rawData);
 
         ArrayList<BarEntry> values = new ArrayList<>();
 
-        for (int i = (int) start; i < start + count; i++) {
-            float val = (float) (Math.random() * (range + 1));
-
+        for (int i = 1; i < weekSummary.size()+1; i++) {
+            float val = weekSummary.get(i-1).getAvg();
             if (Math.random() * 100 < 25) {
                 values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
             } else {
@@ -184,41 +188,22 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 
         BarDataSet set1;
 
-        if (chart.getData() != null &&
-                chart.getData().getDataSetCount() > 0) {
+        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
             set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
             set1.setValues(values);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
 
         } else {
-            set1 = new BarDataSet(values, "The year 2017");
+            set1 = new BarDataSet(values, "Collected Steps");
 
             set1.setDrawIcons(false);
 
-//            set1.setColors(ColorTemplate.MATERIAL_COLORS);
-
-            /*int startColor = ContextCompat.getColor(this, android.R.color.holo_blue_dark);
-            int endColor = ContextCompat.getColor(this, android.R.color.holo_blue_bright);
-            set1.setGradientColor(startColor, endColor);*/
-
-            int startColor1 = ContextCompat.getColor(context, android.R.color.holo_orange_light);
-            int startColor2 = ContextCompat.getColor(context, android.R.color.holo_blue_light);
-            int startColor3 = ContextCompat.getColor(context, android.R.color.holo_orange_light);
-            int startColor4 = ContextCompat.getColor(context, android.R.color.holo_green_light);
-            int startColor5 = ContextCompat.getColor(context, android.R.color.holo_red_light);
-            int endColor1 = ContextCompat.getColor(context, android.R.color.holo_blue_dark);
-            int endColor2 = ContextCompat.getColor(context, android.R.color.holo_purple);
-            int endColor3 = ContextCompat.getColor(context, android.R.color.holo_green_dark);
-            int endColor4 = ContextCompat.getColor(context, android.R.color.holo_red_dark);
-            int endColor5 = ContextCompat.getColor(context, android.R.color.holo_orange_dark);
+            int colorGreen = ContextCompat.getColor(context, android.R.color.holo_green_light);
+            //int coloRed = ContextCompat.getColor(context, android.R.color.holo_red_light);
 
             List<GradientColor> gradientColors = new ArrayList<>();
-            gradientColors.add(new GradientColor(startColor1, endColor1));
-            gradientColors.add(new GradientColor(startColor2, endColor2));
-            gradientColors.add(new GradientColor(startColor3, endColor3));
-            gradientColors.add(new GradientColor(startColor4, endColor4));
-            gradientColors.add(new GradientColor(startColor5, endColor5));
+            gradientColors.add(new GradientColor(colorGreen, colorGreen));
 
             set1.setGradientColors(gradientColors);
 
