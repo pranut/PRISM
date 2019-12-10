@@ -65,9 +65,17 @@ public class MainScreenPatient extends AppCompatActivity {
             }
         });
 
-        // Setting floating button behavior
+        // Change listener code.
         FloatingActionButton fab2 = bi.fab2;
-
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view,
+                        "Preparing weekly report...",
+                        Snackbar.LENGTH_LONG)
+                        .setAction("Action", listener).show();
+            }
+        });
 
     }
 
