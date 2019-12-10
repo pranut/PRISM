@@ -40,7 +40,9 @@ public class MainScreenPatient extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Preparing weekly report...", Snackbar.LENGTH_LONG)
+                Snackbar.make(view,
+                        "Preparing weekly report...",
+                        Snackbar.LENGTH_LONG)
                         .setAction("Action", listener).show();
             }
         });

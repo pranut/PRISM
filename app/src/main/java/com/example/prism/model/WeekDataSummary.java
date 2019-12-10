@@ -1,4 +1,4 @@
-package com.example.prism.domain;
+package com.example.prism.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;

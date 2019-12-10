@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prism.R;
-import com.example.prism.domain.Routine;
+import com.example.prism.model.Routine;
 
 import java.util.ArrayList;
 

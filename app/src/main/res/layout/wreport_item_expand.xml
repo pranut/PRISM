@@ -66,30 +66,27 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutExpand"
             android:layout_width="match_parent"
-            android:layout_height="158dp"
-            android:layout_below="@id/parent"
+            android:layout_height="144dp"
             android:background="#f7f7f7"
             android:orientation="vertical"
             android:visibility="gone">
 
             <Button
                 android:id="@+id/btnReportData"
-                android:layout_width="87dp"
-                android:layout_height="37dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="12dp"
-                android:text="Data"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_width="99dp"
+                android:layout_height="39dp"
+                android:layout_marginEnd="14dp"
+                android:text="View Data"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/spnShareLevel" />
 
             <Spinner
                 android:id="@+id/spnShareLevel"
-                android:layout_width="180dp"
+                android:layout_width="166dp"
                 android:layout_height="22dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txvGranularityLabel" />
+                app:layout_constraintStart_toEndOf="@+id/txvGranularityLabel"
+                app:layout_constraintTop_toTopOf="@+id/txvGranularityLabel" />
 
             <TextView
                 android:id="@+id/txvGranularityLabel"
@@ -97,10 +94,9 @@
                 android:layout_height="22dp"
                 android:layout_margin="15dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginBottom="24dp"
                 android:text="Share Level:"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvStatusLabel" />
 
             <TextView
                 android:id="@+id/txvBriefLabel"
@@ -118,8 +114,7 @@
                 android:layout_width="56dp"
                 android:layout_height="21dp"
                 android:layout_margin="15dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginStart="64dp"
                 android:text="Status:"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txvBriefLabel" />
@@ -129,18 +124,22 @@
                 android:layout_width="68dp"
                 android:layout_height="20dp"
                 android:layout_margin="15dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="12dp"
                 android:text="Status"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/txvStatusLabel"
-                app:layout_constraintTop_toTopOf="@+id/txvStatusLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/txvBriefLabel"
+                app:layout_constraintVertical_bias="0.007" />
 
             <TextView
                 android:id="@+id/txvBrief"
-                android:layout_width="282dp"
-                android:layout_height="42dp"
+                android:layout_width="0dp"
+                android:layout_height="22dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:text="Desc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/txvBriefLabel"
                 app:layout_constraintTop_toTopOf="parent" />
 

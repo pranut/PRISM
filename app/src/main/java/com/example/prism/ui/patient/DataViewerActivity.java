@@ -15,10 +15,8 @@ import android.widget.TextView;
 
 import com.example.prism.DatePickerFragment;
 import com.example.prism.R;
-import com.example.prism.databinding.ContentWeeklyReportBinding;
 import com.example.prism.databinding.DataViewerActivityBinding;
-import com.example.prism.domain.Routine;
-import com.github.mikephil.charting.charts.BarChart;
+import com.example.prism.model.Routine;
 
 import java.util.Calendar;
 
@@ -27,7 +25,6 @@ public class DataViewerActivity extends AppCompatActivity implements BarChartFra
 
     DataViewerActivityBinding bi;
     BarChartFragment fragment;
-    //BarChart chart;
     Routine routine;
     private Spinner spnDataResolution;
 
@@ -105,6 +102,6 @@ public class DataViewerActivity extends AppCompatActivity implements BarChartFra
 
     @Override
     public void onFragmentInteraction(int dataResolutionView) {
-        spnDataResolution.setSelection(dataResolutionView);
+        spnDataResolution.setSelection(dataResolutionView,true);
     }
 }

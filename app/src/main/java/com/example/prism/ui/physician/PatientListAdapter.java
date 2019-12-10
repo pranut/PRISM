@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.prism.ui.patient.LinearChartActivity;
 import com.example.prism.R;
-import com.example.prism.domain.Patient;
+import com.example.prism.model.Patient;
 
 import java.util.ArrayList;
 

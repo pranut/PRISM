@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.prism.R;
-import com.example.prism.domain.Patient;
+import com.example.prism.model.Patient;
 import com.example.prism.ui.patient.PageViewModel;
 
 import java.util.ArrayList;

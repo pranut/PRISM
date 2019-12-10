@@ -2,7 +2,7 @@ package com.example.prism.ui.patient;
 
 import android.os.Bundle;
 import com.example.prism.databinding.ContentWeeklyReportBinding;
-import com.example.prism.domain.Routine;
+import com.example.prism.model.Routine;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -52,9 +52,7 @@ public class WeeklyReport extends AppCompatActivity  {
 //            //routine.setImage(images.getResourceId(i, -1));
 //            routineList.add(routine);
 //        }
-//
 //        return routineList;
-//
 //    }
 
 }

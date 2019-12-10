@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.example.prism.R;
 import com.example.prism.databinding.WreportItemExpandBinding;
-import com.example.prism.domain.Routine;
+import com.example.prism.model.Routine;
 import com.example.prism.ui.custom.Animations;
 
 import java.util.List;

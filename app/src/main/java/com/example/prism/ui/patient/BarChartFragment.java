@@ -2,20 +2,21 @@ package com.example.prism.ui.patient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.prism.R;
-import com.example.prism.domain.DataSummary;
-import com.example.prism.domain.DayDataSummary;
-import com.example.prism.domain.HourDataSummary;
-import com.example.prism.domain.TimeEvent;
-import com.example.prism.domain.TimeSeriesPrivatizer;
-import com.example.prism.domain.WeekDataSummary;
+import com.example.prism.databinding.FragmentBarChartBinding;
+import com.example.prism.model.DataSummary;
+import com.example.prism.model.DayDataSummary;
+import com.example.prism.model.EDataResolution;
+import com.example.prism.model.HourDataSummary;
+import com.example.prism.model.TimeEvent;
+import com.example.prism.model.TimeSeriesPrivatizer;
+import com.example.prism.model.WeekDataSummary;
 import com.example.prism.ui.custom.DayAxisValueFormatter;
 import com.example.prism.ui.custom.MyValueFormatter;
 import com.example.prism.ui.custom.XYMarkerView;
-import com.github.mikephil.charting.listener.ChartTouchListener;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import android.content.Context;
@@ -27,11 +28,8 @@ import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -51,16 +49,16 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.model.GradientColor;
 import com.github.mikephil.charting.utils.MPPointF;
+import com.google.android.material.snackbar.Snackbar;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarChartFragment extends Fragment implements OnSeekBarChangeListener,
-        OnChartValueSelectedListener {
+public class BarChartFragment extends Fragment implements OnChartValueSelectedListener {
 
     private BarChart chart;
-
+    private FragmentBarChartBinding bi;
     private WeekDataSummary weekDataSummary;
     private DayDataSummary dayDataSummary;
     private HourDataSummary hourDataSummary;
@@ -114,10 +112,14 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         context = container.getContext();
 
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_bar_chart, container, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.fragment_bar_chart, null);
+        bi = DataBindingUtil.bind(view);
 
-        chart = root.findViewById(R.id.barChart);
+        // Inflate the layout for this fragment
+        //View root = inflater.inflate(R.layout.fragment_bar_chart, container, false);
+
+        //chart = root.findViewById(R.id.barChart);
+        chart = bi.barChart;
         chart.setOnChartValueSelectedListener(this);
 
         chart.setDrawBarShadow(false);
@@ -187,7 +189,7 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         // draw legend entries as lines
         //l.setForm(Legend.LegendForm.LINE);
         //chart.setDrawLegend(false);
-        return root;
+        return view;
     }
 
     private void updateData(int chartX, int viewResolution) {
@@ -269,6 +271,7 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 //        return true;
 //    }
 
+    //Not being used. Kept for reference
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -345,23 +348,6 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         return true;
     }
 
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-//        tvX.setText(String.valueOf(seekBarX.getProgress()));
-//        tvY.setText(String.valueOf(seekBarY.getProgress()));
-//
-//        setInitialData(seekBarX.getProgress(), seekBarY.getProgress());
-//        chart.invalidate();
-    }
-
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {}
-
     private final RectF onValueSelectedRectF = new RectF();
 
     public void setDataViewResolution(String viewResolution){
@@ -412,6 +398,7 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         //Saving last item selected
         lastEntrySelected = e;
 
+        //Kept for reference
         RectF bounds = onValueSelectedRectF;
         chart.getBarBounds((BarEntry) e, bounds);
         MPPointF position = chart.getPosition(e, AxisDependency.LEFT);
@@ -430,15 +417,27 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 
         if(this.dataViewResolution > 1) {
             //Going one level into
+            EDataResolution eDataResPrevious = EDataResolution.toEnum(this.dataViewResolution);
             this.dataViewResolution = this.dataViewResolution - 1;
-            this.updateData((int) lastEntrySelected.getX(), this.dataViewResolution);
-            // draw points over time
-            chart.animateX(1000);
+            EDataResolution eDataResNext = EDataResolution.toEnum(this.dataViewResolution);
+
+            String message = "Expanding " + eDataResPrevious.toString() + " data point into " + eDataResNext.toString();
+
+            Snackbar.make(bi.linearChartFrame, message, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+
+            //This c
             mListener.onFragmentInteraction(this.dataViewResolution);
+
+            //this.updateData((int) lastEntrySelected.getX(), this.dataViewResolution);
+
+            // draw points over time
+
+            //chart.animateX(1000);
+
         }
-
-
     }
+
 
     @Override
     public void onAttach(Context context) {

@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.example.prism.R;
 import com.example.prism.databinding.ListItemRoutinesBinding;
-import com.example.prism.domain.Routine;
+import com.example.prism.model.Routine;
 
 import java.util.ArrayList;
 
