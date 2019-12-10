@@ -46,11 +46,13 @@ public class TestESM implements AwareTest {
 //        testESMWeb(context);
         //testESMDate(context);
         //sleepESM(context);
-        if( testno == 2) {
+        if( testno == 1) {
             painESM(context);
-        } else
+        } else if (testno == 2)
         {
             sleepESM(context);
+        } else if(testno == 3) {
+            communicationEsm(context);
         }
     }
 
@@ -67,6 +69,48 @@ public class TestESM implements AwareTest {
 
             ESM.queueESM(context, factory.build());
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void painChange(Context context) {
+        ESMFactory factory = new ESMFactory();
+        try {
+
+            ESM_QuickAnswer q0 = new ESM_QuickAnswer();
+            q0.addQuickAnswer("Yes")
+                    .addQuickAnswer("No")
+                    .setTitle("High change in pain detected. It is advisable to report this to your PT, would you like to report it now?");
+
+            factory.addESM(q0);
+
+            ESM.queueESM(context, factory.build());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void communicationEsm(Context context) {
+        ESMFactory factory = new ESMFactory();
+        try {
+
+            ESM_Freetext esmFreetext = new ESM_Freetext();
+            esmFreetext.setTitle("Everything Alright?")
+                    .setTrigger("test")
+                    .setReplaceQueue(true)
+                    .setSubmitButton("Done")
+                    .setInstructions("We detected that you had difficulty sleeping on yesterday.\nIf you want to note the reason, please enter below:");
+
+
+//            ESM_QuickAnswer q0 = new ESM_QuickAnswer();
+//            q0.addQuickAnswer("Yes")
+//                    .addQuickAnswer("No")
+//                    .setTitle("High change in pain detected. It is advisable to report this to your PT, would you like to report it now?");
+
+            factory.addESM(esmFreetext);
+
+            ESM.queueESM(context, factory.build());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -126,6 +170,7 @@ public class TestESM implements AwareTest {
             Intent myIntent = new Intent(context, DvprsEntry.class);
             //myIntent.putExtra("key", value); //Optional parameters
             context.startActivity(myIntent);
+            painChange(context);
         }
     }
 

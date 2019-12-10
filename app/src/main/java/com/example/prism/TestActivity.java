@@ -35,7 +35,7 @@ public class TestActivity extends Activity {
             public void onClick(View v) {
                 Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_ESM, true);
                 TestESM testESM = new TestESM();
-                testESM.test(getApplicationContext(), 1);
+                testESM.test(getApplicationContext(), 2);
             }
         });
 
@@ -45,15 +45,17 @@ public class TestActivity extends Activity {
                 /*TestScheduler testScheduler = new TestScheduler();
                 testScheduler.test(getApplicationContext());*/
                 TestESM testESM = new TestESM();
-                testESM.test(getApplicationContext(), 2);
+                testESM.test(getApplicationContext(), 1);
             }
         });
 
         button_delete_schedules = (Button) findViewById(R.id.btn_clear_schedulers);
         button_delete_schedules.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Scheduler.clearSchedules(getApplicationContext());
-                Toast.makeText(getApplicationContext(), "Cleared!", Toast.LENGTH_SHORT).show();
+                /*Scheduler.clearSchedules(getApplicationContext());
+                Toast.makeText(getApplicationContext(), "Cleared!", Toast.LENGTH_SHORT).show();*/
+                TestESM testESM = new TestESM();
+                testESM.test(getApplicationContext(), 3);
             }
         });
 

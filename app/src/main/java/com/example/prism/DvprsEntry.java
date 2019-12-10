@@ -1249,7 +1249,7 @@ public class DvprsEntry extends AppCompatActivity {
         //Start the layout
         setContentView(dvprsSecondLayout);
 
-
+        finish();
 
 
 
