@@ -6,7 +6,6 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;

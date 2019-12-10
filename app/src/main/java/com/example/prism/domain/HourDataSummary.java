@@ -1,27 +1,50 @@
 package com.example.prism.domain;
 
-import android.provider.ContactsContract;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class HourDataSummary {
 
-    public ArrayList<DataSummary> hourSummary;
-
+    public ArrayList<DataSummary> dataPoints;
+    public ArrayList<TimeEvent> rawDataPoints;
 
     public HourDataSummary(){
 
     }
 
+    public ArrayList<TimeEvent> getRawDataWithinHour(int hourIndex){
+
+        //TODO all raw data may be too much to show. Some method of pagination will be necessary
+        ArrayList<DataSummary> rawPointsWithinHour = new ArrayList<>();
+
+//        int hourIndexEnd;
+//        if(dayIndex == 0)
+//            hourIndexEnd = 24;
+//        else
+//            hourIndexEnd = (dayIndex+1) * 24;
+//
+//        int hourIndexStart = hourIndexEnd - 24;
+//
+//        int index = hourIndexStart;
+//
+//        while (index < hourDataPoints.size() && index < hourIndexEnd){
+//            hoursWithinWeek.add(dataPoints.get(index));
+//            index++;
+//        }
+
+        return rawDataPoints;
+
+    }
+
     public ArrayList<DataSummary> createHourlySummary(ArrayList<TimeEvent> rawData) {
 
-        if (hourSummary != null) {
-            return hourSummary;
+        if (dataPoints != null) {
+            return dataPoints;
 
         } else {
-            hourSummary = new ArrayList<>();
+            this.rawDataPoints = rawData;
+            this.dataPoints = new ArrayList<>();
             // Get current time and round to hour
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date(rawData.get(0).eventTime));
@@ -54,7 +77,7 @@ public class HourDataSummary {
                     countAvgItems++;
                 } else {
                     //Setting last item
-                    setDataSumm(tempTotal, countAvgItems, dtSumm, hourSummary);
+                    setDataSumm(tempTotal, countAvgItems, dtSumm, dataPoints);
 
                     dtSumm = new DataSummary();
 
@@ -68,10 +91,10 @@ public class HourDataSummary {
 
             }
             //Setting last item
-            setDataSumm(tempTotal, countAvgItems, dtSumm, hourSummary);
+            setDataSumm(tempTotal, countAvgItems, dtSumm, dataPoints);
         }
 
-        return hourSummary;
+        return dataPoints;
     }
 
     private void setDataSumm(float tempTotal, int countAvgItems, DataSummary dtSumm, ArrayList<DataSummary> summList) {

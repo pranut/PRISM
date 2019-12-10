@@ -6,24 +6,50 @@ import java.util.Date;
 
 public class DayDataSummary {
 
-    public ArrayList<DataSummary> daySummary;
+    public ArrayList<DataSummary> dataPoints;
 
-    public HourDataSummary hdSumm;
+    public HourDataSummary hourlySummary;
 
     public DayDataSummary(){
 
     }
 
 
+    public ArrayList<DataSummary> getHoursWithinDay(int dayIndex){
+
+        //TODO this code can be simplified
+        ArrayList<DataSummary> hourDataPoints = hourlySummary.dataPoints;
+
+        ArrayList<DataSummary> hoursWithinWeek = new ArrayList<>();
+
+        int hourIndexEnd;
+        if(dayIndex == 0)
+            hourIndexEnd = 24;
+        else
+            hourIndexEnd = (dayIndex+1) * 24;
+
+        int hourIndexStart = hourIndexEnd - 24;
+
+        int index = hourIndexStart;
+
+        while (index < hourDataPoints.size() && index < hourIndexEnd){
+            hoursWithinWeek.add(hourDataPoints.get(index));
+            index++;
+        }
+
+        return hoursWithinWeek;
+
+    }
+
     public ArrayList<DataSummary> createDaySummary(ArrayList<TimeEvent> rawData) {
 
-        if (daySummary != null) {
-            return daySummary;
+        if (dataPoints != null) {
+            return dataPoints;
 
         } else {
-            daySummary = new ArrayList<>();
-            hdSumm = new HourDataSummary();
-            ArrayList<DataSummary> hourSummary = hdSumm.createHourlySummary(rawData);
+            dataPoints = new ArrayList<>();
+            hourlySummary = new HourDataSummary();
+            ArrayList<DataSummary> hourSummary = hourlySummary.createHourlySummary(rawData);
 
             // Get current time and round to hour
             Calendar calendar = Calendar.getInstance();
@@ -61,7 +87,7 @@ public class DayDataSummary {
                 } else {
 
                     //Setting last item
-                    setDataSumm(tempTotal, countAvgItems, dtSumm, daySummary);
+                    setDataSumm(tempTotal, countAvgItems, dtSumm, dataPoints);
 
                     dtSumm = new DataSummary();
 
@@ -75,11 +101,11 @@ public class DayDataSummary {
 
             }
             //Setting last item
-            setDataSumm(tempTotal, countAvgItems, dtSumm, daySummary);
+            setDataSumm(tempTotal, countAvgItems, dtSumm, dataPoints);
         }
 
 
-        return daySummary;
+        return dataPoints;
     }
 
     private void setDataSumm(float tempTotal, int countAvgItems, DataSummary dtSumm, ArrayList<DataSummary> summList) {

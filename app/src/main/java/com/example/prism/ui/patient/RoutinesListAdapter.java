@@ -21,7 +21,6 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
     private ArrayList<Routines> lstRoutines;
     private Context context;
 
-
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
     public class RoutinesViewHolder extends RecyclerView.ViewHolder {
@@ -72,15 +71,16 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
         // Set item views based on your views and data model
         TextView textView = viewHolder.nameTextView;
         textView.setText(routines.getName());
+
         Button reportButton = viewHolder.reportButton;
         reportButton.setText(routines.isOnline() ? "Report" : "Complete");
         reportButton.setEnabled(routines.isOnline());
 
-        if (routines.getRoutineType() == 77){
+        if (routines.getRoutineID() == 77){
             reportButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent myIntent = new Intent(context, DataViewerActivity.class);
+                    Intent myIntent = new Intent(context, PainReport.class);
                     context.startActivity(myIntent);
                 }
             });
@@ -90,11 +90,10 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
         detailsButton.setText("Data");
         detailsButton.setEnabled(true);
 
-
         detailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(context, LinearChartActivity.class);
+                Intent myIntent = new Intent(context, DataViewerActivity.class);
                 context.startActivity(myIntent);
             }
         });

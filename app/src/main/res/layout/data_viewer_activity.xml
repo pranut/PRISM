@@ -14,33 +14,34 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtStartDate"
-        android:layout_width="90dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="20dp"
+        android:layout_width="100dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="28dp"
         android:ems="10"
         android:inputType="date"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/container"
         app:layout_constraintStart_toEndOf="@+id/tvDateLabel" />
 
     <TextView
         android:id="@+id/txtEndDate"
-        android:layout_width="84dp"
-        android:layout_height="35dp"
+        android:layout_width="100dp"
+        android:layout_height="24dp"
         android:layout_marginStart="16dp"
         android:ems="10"
         android:inputType="date"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/tvDateLabel2"
         app:layout_constraintTop_toTopOf="@+id/txtStartDate" />
 
@@ -51,6 +52,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="28dp"
         android:text="From"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/container"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -59,8 +61,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="70dp"
         android:text="Date Range"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/container"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -68,9 +71,9 @@
         android:id="@+id/tvDateLabel2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="12dp"
         android:text="To"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/txtStartDate"
         app:layout_constraintTop_toTopOf="@+id/txtStartDate" />
 
@@ -78,21 +81,25 @@
         android:id="@+id/spnPresetDates"
         android:layout_width="182dp"
         android:layout_height="29dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@+id/tvPresetDatesLabel"
-        app:layout_constraintTop_toTopOf="@+id/tvPresetDatesLabel" />
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="68dp"
+        app:layout_constraintBottom_toTopOf="@+id/container"
+        app:layout_constraintStart_toEndOf="@+id/tvPresetDatesLabel" />
 
     <TextView
         android:id="@+id/tvDataViewerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Step Count"
+        android:textColor="#000000"
+        android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.188" />
+        app:layout_constraintVertical_bias="0.038" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

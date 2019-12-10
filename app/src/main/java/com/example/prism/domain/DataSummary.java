@@ -1,8 +1,6 @@
 package com.example.prism.domain;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class DataSummary {
 

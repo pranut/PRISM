@@ -6,9 +6,9 @@ import java.util.Date;
 
 public class WeekDataSummary {
 
-    public ArrayList<DataSummary> weekDataPoints;
+    public ArrayList<DataSummary> dataPoints;
 
-    public DayDataSummary daySumm;
+    public DayDataSummary dailySummary;
 
     public WeekDataSummary(){
 
@@ -17,7 +17,7 @@ public class WeekDataSummary {
     public ArrayList<DataSummary> getDaysWithinWeek(int weekIndex){
 
         //TODO this code can be simplified
-        ArrayList<DataSummary> daySummary = daySumm.daySummary;
+        ArrayList<DataSummary> daySummary = dailySummary.dataPoints;
 
         ArrayList<DataSummary> daysWithinWeek = new ArrayList<>();
 
@@ -42,13 +42,13 @@ public class WeekDataSummary {
 
     public ArrayList<DataSummary> createWeekSummary(ArrayList<TimeEvent> rawData) {
 
-        if (weekDataPoints != null) {
-            return weekDataPoints;
+        if (dataPoints != null) {
+            return dataPoints;
 
         } else {
-            weekDataPoints = new ArrayList<>();
-            daySumm = new DayDataSummary();
-            ArrayList<DataSummary> daySummary = daySumm.createDaySummary(rawData);
+            dataPoints = new ArrayList<>();
+            dailySummary = new DayDataSummary();
+            ArrayList<DataSummary> daySummary = dailySummary.createDaySummary(rawData);
 
             // Get current time and round to hour
             Calendar calendar = Calendar.getInstance();
@@ -85,7 +85,7 @@ public class WeekDataSummary {
                     countAvgItems++;
                 } else {
 
-                    setDataSumm(tempTotal, countAvgItems, dtSumm, weekDataPoints);
+                    setDataSumm(tempTotal, countAvgItems, dtSumm, dataPoints);
 
                     dtSumm = new DataSummary();
 
@@ -101,13 +101,13 @@ public class WeekDataSummary {
             }
 
             //Setting last item
-            setDataSumm(tempTotal, countAvgItems, dtSumm, weekDataPoints);
+            setDataSumm(tempTotal, countAvgItems, dtSumm, dataPoints);
 
 
         }
 
 
-        return weekDataPoints;
+        return dataPoints;
     }
 
     private void setDataSumm(float tempTotal, int countAvgItems, DataSummary dtSumm, ArrayList<DataSummary> summList) {

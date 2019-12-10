@@ -56,6 +56,7 @@
     <string name="scrollViewEnd">END OF SCROLLVIEW</string>
 
     <string-array name="date_presets">
+        <item>All</item>
         <item>Hourly</item>
         <item>Daily</item>
         <item>Weekly</item>

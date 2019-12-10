@@ -7,32 +7,31 @@ import androidx.fragment.app.Fragment;
 import com.example.prism.R;
 import com.example.prism.domain.DataSummary;
 import com.example.prism.domain.DayDataSummary;
+import com.example.prism.domain.HourDataSummary;
 import com.example.prism.domain.TimeEvent;
 import com.example.prism.domain.TimeSeriesPrivatizer;
 import com.example.prism.domain.WeekDataSummary;
 import com.example.prism.ui.custom.DayAxisValueFormatter;
 import com.example.prism.ui.custom.MyValueFormatter;
 import com.example.prism.ui.custom.XYMarkerView;
+import com.github.mikephil.charting.listener.ChartTouchListener;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -50,7 +49,6 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.model.GradientColor;
 import com.github.mikephil.charting.utils.MPPointF;
 
@@ -62,15 +60,22 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         OnChartValueSelectedListener {
 
     private BarChart chart;
-    private TextView tvX, tvY;
 
     private WeekDataSummary weekDataSummary;
+    private DayDataSummary dayDataSummary;
+    private HourDataSummary hourDataSummary;
+    private ArrayList<TimeEvent> rawData;
 
+    private Entry lastEntrySelected;
+
+    // 0 = raw, 1 = hourly, 2=daily, 3=weekly, 4=monthly, 5=yearly
     private int dataViewResolution = 0;
 
     private Context context;
 
-    private OnFragmentInteractionListener mListener;
+    private int timeOffSet = 0;
+
+    public OnFragmentInteractionListener mListener;
 
     public BarChartFragment() {
         // Required empty public constructor
@@ -96,6 +101,13 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 //            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        TimeSeriesPrivatizer priv = new TimeSeriesPrivatizer();
+        ArrayList<TimeEvent> rawData = priv.generateDummyData(100, 1500);
+        weekDataSummary = priv.getWeekAvgDataPoints(rawData);
+        dayDataSummary = weekDataSummary.dailySummary;
+        hourDataSummary = dayDataSummary.hourlySummary;
+        this.rawData = rawData;
+
     }
 
     @Override
@@ -119,9 +131,10 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 
         // scaling can now only be done on x- and y-axis separately
         chart.setPinchZoom(false);
-
+        chart.setDoubleTapToZoomEnabled(false);
         chart.setDrawGridBackground(false);
         // chart.setDrawYLabels(false);
+
 
         ValueFormatter xAxisFormatter = new DayAxisValueFormatter(chart);
 
@@ -133,7 +146,7 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         xAxis.setLabelCount(7);
         xAxis.setValueFormatter(xAxisFormatter);
 
-        ValueFormatter custom = new MyValueFormatter("$");
+        ValueFormatter custom = new MyValueFormatter("");
 
         YAxis leftAxis = chart.getAxisLeft();
         //leftAxis.setTypeface(tfLight);
@@ -143,13 +156,14 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         leftAxis.setSpaceTop(15f);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
-        YAxis rightAxis = chart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-        //rightAxis.setTypeface(tfLight);
-        rightAxis.setLabelCount(8, false);
-        rightAxis.setValueFormatter(custom);
-        rightAxis.setSpaceTop(15f);
-        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        chart.getAxisRight().setEnabled(false);
+//        YAxis rightAxis = chart.getAxisRight();
+//        rightAxis.setDrawGridLines(false);
+//        //rightAxis.setTypeface(tfLight);
+//        rightAxis.setLabelCount(8, false);
+//        rightAxis.setValueFormatter(custom);
+//        rightAxis.setSpaceTop(15f);
+//        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
         Legend l = chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -165,7 +179,7 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         mv.setChartView(chart); // For bounds control
         chart.setMarker(mv); // Set the marker to the chart
 
-        setData(45, 180,container.getContext());
+        setInitialData();
 
         // draw points over time
         chart.animateX(1500);
@@ -173,75 +187,49 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         // draw legend entries as lines
         //l.setForm(Legend.LegendForm.LINE);
         //chart.setDrawLegend(false);
-
         return root;
     }
 
-
-    private void updateData(int chartX) {
+    private void updateData(int chartX, int viewResolution) {
         //chartX is x+1
-        ArrayList<DataSummary> daysWithinWeek  = weekDataSummary.getDaysWithinWeek(chartX-1);
-
         ArrayList<BarEntry> values = new ArrayList<>();
 
-        for (int i = 1; i < daysWithinWeek.size()+1; i++) {
-            float val = daysWithinWeek.get(i-1).getAvg();
-            if (Math.random() * 100 < 25) {
-                values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
-            } else {
-                values.add(new BarEntry(i, val));
+        switch (viewResolution){
+            case 0:{
+                break;
+            }
+            case 1:{
+                ArrayList<DataSummary> hoursWithinDay  = dayDataSummary.getHoursWithinDay(chartX-1);
+                setBarEntry(values, hoursWithinDay);
+                break;
+            }
+            case 2:{
+                ArrayList<DataSummary> daysWithinWeek  = weekDataSummary.getDaysWithinWeek(chartX-1);
+                setBarEntry(values, daysWithinWeek);
+
+                break;
             }
         }
+        setChartData(values, context);
+    }
 
-        BarDataSet set1;
-
-        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
-            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
-            chart.getData().notifyDataChanged();
-            chart.notifyDataSetChanged();
-
-        } else {
-            set1 = new BarDataSet(values, "Collected Steps");
-
-            set1.setDrawIcons(false);
-
-            int colorGreen = ContextCompat.getColor(context, android.R.color.holo_green_light);
-            //int coloRed = ContextCompat.getColor(context, android.R.color.holo_red_light);
-
-            List<GradientColor> gradientColors = new ArrayList<>();
-            gradientColors.add(new GradientColor(colorGreen, colorGreen));
-
-            set1.setGradientColors(gradientColors);
-
-            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
-            dataSets.add(set1);
-
-            BarData data = new BarData(dataSets);
-            data.setValueTextSize(10f);
-            //data.setValueTypeface(tfLight);
-            data.setBarWidth(0.9f);
-
-            chart.setData(data);
+    private void setBarEntry(ArrayList<BarEntry> values, ArrayList<DataSummary> dataList) {
+        for (int i = 1; i < dataList.size() + 1; i++) {
+            float val = dataList.get(i - 1).getAvg();
+            //values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
+            values.add(new BarEntry(i, val));
         }
     }
 
-    private void setData(int count, float range, Context context) {
+    private void setInitialData() {
 
-        TimeSeriesPrivatizer priv = new TimeSeriesPrivatizer();
-        ArrayList<TimeEvent> rawData = priv.generateDummyData(count, range);
-        weekDataSummary = priv.getWeekAvgDataPoints(rawData);
-
-        ArrayList<DataSummary> dataPoints = weekDataSummary.weekDataPoints;
-
+        ArrayList<DataSummary> dataPoints = weekDataSummary.dataPoints;
         ArrayList<BarEntry> values = new ArrayList<>();
+        setBarEntry(values, dataPoints);
+        setChartData(values, context);
+    }
 
-        for (int i = 1; i < dataPoints.size()+1; i++) {
-            float val = dataPoints.get(i-1).getAvg();
-                //values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
-            values.add(new BarEntry(i, val));
-        }
-
+    private void setChartData(ArrayList<BarEntry> values, Context context) {
         BarDataSet set1;
 
         if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
@@ -249,10 +237,8 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
             set1.setValues(values);
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
-
         } else {
             set1 = new BarDataSet(values, "Collected Steps");
-
             set1.setDrawIcons(false);
 
             int colorGreen = ContextCompat.getColor(context, android.R.color.holo_green_light);
@@ -273,6 +259,8 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 
             chart.setData(data);
         }
+        chart.resetZoom();
+        chart.fitScreen();
     }
 
 //    @Override
@@ -363,7 +351,7 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 //        tvX.setText(String.valueOf(seekBarX.getProgress()));
 //        tvY.setText(String.valueOf(seekBarY.getProgress()));
 //
-//        setData(seekBarX.getProgress(), seekBarY.getProgress());
+//        setInitialData(seekBarX.getProgress(), seekBarY.getProgress());
 //        chart.invalidate();
     }
 
@@ -376,13 +364,53 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
 
     private final RectF onValueSelectedRectF = new RectF();
 
+    public void setDataViewResolution(String viewResolution){
+        ArrayList<BarEntry> values = new ArrayList<>();
+        switch (viewResolution){
+            case "All":{
+                this.dataViewResolution = 0;
+                ArrayList<TimeEvent> rawDataWithinHour  = hourDataSummary.rawDataPoints;
+                for (int i = 1; i < rawDataWithinHour.size() + 1; i++) {
+                    float val = (float)rawDataWithinHour.get(i-1).value;
+                    float index = rawDataWithinHour.get(i-1).eventTime;
+                    //values.add(new BarEntry(i, val, getResources().getDrawable(R.drawable.star)));
+                    values.add(new BarEntry(i, val));
+                }
+                break;
+            }
+            case "Hourly":{
+                this.dataViewResolution = 1;
+                ArrayList<DataSummary> allDataAsHours  = hourDataSummary.dataPoints;
+                setBarEntry(values, allDataAsHours);
+                break;
+            }
+            case "Daily":{
+                this.dataViewResolution = 2;
+                ArrayList<DataSummary> allDataAsDays  = dayDataSummary.dataPoints;
+                setBarEntry(values, allDataAsDays);
+                break;
+            }
+            case "Weekly":{
+                ArrayList<DataSummary> allDataAsWeeks  = weekDataSummary.dataPoints;
+                setBarEntry(values, allDataAsWeeks);
+                this.dataViewResolution = 3;
+                break;
+            }
+            default:{
+                break;
+            }
+        }
+        setChartData(values, this.context);
+        chart.animateX(1000);
+    }
+
     @Override
     public void onValueSelected(Entry e, Highlight h) {
 
         if (e == null)
             return;
-
-        this.updateData((int)e.getX());
+        //Saving last item selected
+        lastEntrySelected = e;
 
         RectF bounds = onValueSelectedRectF;
         chart.getBarBounds((BarEntry) e, bounds);
@@ -392,15 +420,24 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         Log.i("position", position.toString());
 
         Log.i("x-index",
-                "low: " + chart.getLowestVisibleX() + ", high: "
-                        + chart.getHighestVisibleX());
+                "low: " + chart.getLowestVisibleX() + ", high: "+ chart.getHighestVisibleX());
 
         MPPointF.recycleInstance(position);
     }
 
     @Override
     public void onNothingSelected() {
-        Log.i("Nothing selected", "Nothing selected.");
+
+        if(this.dataViewResolution > 1) {
+            //Going one level into
+            this.dataViewResolution = this.dataViewResolution - 1;
+            this.updateData((int) lastEntrySelected.getX(), this.dataViewResolution);
+            // draw points over time
+            chart.animateX(1000);
+            mListener.onFragmentInteraction(this.dataViewResolution);
+        }
+
+
     }
 
     @Override
@@ -420,18 +457,7 @@ public class BarChartFragment extends Fragment implements OnSeekBarChangeListene
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(int dataResolutionView);
     }
 }

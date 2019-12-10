@@ -25,7 +25,7 @@ public class PhysicalTreatmentFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    ArrayList<Routines> routines;
+    private ArrayList<Routines> routines;
 
     public static PhysicalTreatmentFragment newInstance(int index) {
         PhysicalTreatmentFragment fragment = new PhysicalTreatmentFragment();
