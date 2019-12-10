@@ -11,27 +11,35 @@ public class Routine implements Parcelable {
     private boolean enabled;
     private int routineID;
 
+    public String description;
+    public String status;
+    public int defaultShareLevel;
+
     public ArrayList<TimeEvent> rawData;
 
-    private String description;
     private boolean isExpanded;
     private int image;
 
-    public Routine(String name, int routineID, boolean enabled) {
+    public Routine(String name, int routineID, boolean enabled, String status, String description, int shareLevel) {
         this.rName = name;
         this.routineID = routineID;
         this.enabled = enabled;
+        this.status = status;
+        this.description = description;
+        this.defaultShareLevel = shareLevel;
     }
 
     public Routine() {
-
     }
+
 
     protected Routine(Parcel in) {
         rName = in.readString();
         enabled = in.readByte() != 0;
         routineID = in.readInt();
         description = in.readString();
+        status = in.readString();
+        defaultShareLevel = in.readInt();
         isExpanded = in.readByte() != 0;
         image = in.readInt();
     }
@@ -92,10 +100,10 @@ public class Routine implements Parcelable {
     public static ArrayList<Routine> createRoutinesList(int numContacts) {
         ArrayList<Routine> routineList = new ArrayList<Routine>();
 
-        routineList.add( new Routine("Daily Pain Report Level", 77, true));
-        routineList.add( new Routine("Knee Exercise", 88, true));
-        routineList.add( new Routine("Stretching",99, true));
-        routineList.add( new Routine("Walk",66, true));
+        routineList.add( new Routine("Daily Pain Report Level", 77, true, "Normal", "Report any pain felt during the day.", 0));
+        routineList.add( new Routine("Knee Exercise", 88, true , "Not Normal", "Perform the selected number of knee exercises.", 1));
+        routineList.add( new Routine("Stretching",99, true, "Anomaly Detected", "Stretch your leg twice a day.", 1));
+        routineList.add( new Routine("Walk",66, true, "Outlier Detected", "Walk at least 2000 steps per day.", 2));
 
 //        for (int i = 1; i <= numContacts; i++) {
 //            contacts.add(new Routine("Routine " + ++lastContactId, i, i <= numContacts / 2));
@@ -103,6 +111,7 @@ public class Routine implements Parcelable {
 
         return routineList;
     }
+
 
     @Override
     public int describeContents() {
@@ -115,6 +124,8 @@ public class Routine implements Parcelable {
         parcel.writeByte((byte) (enabled ? 1 : 0));
         parcel.writeInt(routineID);
         parcel.writeString(description);
+        parcel.writeString(status);
+        parcel.writeInt(defaultShareLevel);
         parcel.writeByte((byte) (isExpanded ? 1 : 0));
         parcel.writeInt(image);
     }

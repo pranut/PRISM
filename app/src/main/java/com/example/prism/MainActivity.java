@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.example.prism.model.Routine;
+import com.example.prism.model.Routines;
 import com.example.prism.model.TimeEvent;
 import com.example.prism.model.TimeSeriesPrivatizer;
 
@@ -41,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
             Intent myIntent = new Intent(this, MainScreenPatient.class);
 
             ArrayList<Routine> routines = createDummyDate();
-            myIntent.putExtra("ROUTINES", routines);
+            Routines rList = new Routines(routines);
+            myIntent.putExtra("ROUTINES", rList);
 
             startActivity(myIntent);
         }
@@ -51,13 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize contacts
         ArrayList<Routine> routines = Routine.createRoutinesList(20);
-
-        TimeSeriesPrivatizer priv = new TimeSeriesPrivatizer();
-
-        for(Routine r : routines){
-            r.rawData = priv.generateDummyData(100, 1500);
-        }
-
         return routines;
     }
 

@@ -6,8 +6,7 @@ import android.os.Bundle;
 
 import com.example.prism.databinding.ActivityMainScreenPatientBinding;
 import com.example.prism.model.Routine;
-import com.example.prism.model.TimeEvent;
-import com.example.prism.model.TimeSeriesPrivatizer;
+import com.example.prism.model.Routines;
 import com.example.prism.ui.patient.WeeklyReport;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,7 +25,7 @@ import java.util.ArrayList;
 
 public class MainScreenPatient extends AppCompatActivity {
 
-    ArrayList<Routine> routines;
+    Routines routines;
 
     ActivityMainScreenPatientBinding bi;
 
@@ -42,7 +41,7 @@ public class MainScreenPatient extends AppCompatActivity {
             routines = intentIncoming.getParcelableExtra("ROUTINES");// OK
         }
 
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager(),routines);
 
         ViewPager viewPager = bi.vpContentItems;
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -84,6 +83,9 @@ public class MainScreenPatient extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(context, WeeklyReport.class);
+
+                myIntent.putExtra("ROUTINES", routines);
+
                 startActivity(myIntent);
             }
         };

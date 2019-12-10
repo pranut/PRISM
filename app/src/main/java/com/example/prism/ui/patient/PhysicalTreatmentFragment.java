@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prism.R;
 import com.example.prism.model.Routine;
+import com.example.prism.model.Routines;
 
 import java.util.ArrayList;
 
@@ -25,13 +26,19 @@ public class PhysicalTreatmentFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Routine> routines;
+    private Routines routines;
 
-    public static PhysicalTreatmentFragment newInstance(int index) {
-        PhysicalTreatmentFragment fragment = new PhysicalTreatmentFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(ARG_SECTION_NUMBER, index);
-        fragment.setArguments(bundle);
+    public PhysicalTreatmentFragment(){}
+    public PhysicalTreatmentFragment(Routines routines){
+        this.routines = routines;
+    }
+
+    public static PhysicalTreatmentFragment newInstance(Routines routines) {
+        PhysicalTreatmentFragment fragment = new PhysicalTreatmentFragment(routines);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt(ARG_SECTION_NUMBER, index);
+//        fragment.setArguments(bundle);
+
         return fragment;
     }
 
@@ -44,7 +51,6 @@ public class PhysicalTreatmentFragment extends Fragment {
 //            index = getArguments().getInt(ARG_SECTION_NUMBER);
 //        }
 //        pageViewModel.setIndex(index);
-
     }
 
     @Override
@@ -56,13 +62,13 @@ public class PhysicalTreatmentFragment extends Fragment {
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
-        //recyclerView.setHasFixedSize(true);
+        // recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(container.getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        // Initialize contacts
-        routines = Routine.createRoutinesList(20);
+//        // Initialize contacts
+//        routines = Routine.createRoutinesList(20);
 
         // Create adapter passing in the sample user data
         RoutinesListAdapter adapter = new RoutinesListAdapter(routines, container.getContext());

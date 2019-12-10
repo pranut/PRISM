@@ -19,8 +19,7 @@ public class DataSummary {
         return rawPoints;
     }
 
-    public void setRawPoints(ArrayList<TimeEvent> rawPoints) {
-        this.rawPoints = rawPoints;
+    public void setRawPoints(ArrayList<TimeEvent> rawPoints) {this.rawPoints = rawPoints;
     }
 
     public void addRawPoints(TimeEvent tEvent) {

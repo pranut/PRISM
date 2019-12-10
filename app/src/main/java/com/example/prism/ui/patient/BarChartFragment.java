@@ -62,7 +62,7 @@ public class BarChartFragment extends Fragment implements OnChartValueSelectedLi
     private WeekDataSummary weekDataSummary;
     private DayDataSummary dayDataSummary;
     private HourDataSummary hourDataSummary;
-    private ArrayList<TimeEvent> rawData;
+    public ArrayList<TimeEvent> rawData;
 
     private Entry lastEntrySelected;
 
@@ -100,12 +100,9 @@ public class BarChartFragment extends Fragment implements OnChartValueSelectedLi
         }
 
         TimeSeriesPrivatizer priv = new TimeSeriesPrivatizer();
-        ArrayList<TimeEvent> rawData = priv.generateDummyData(100, 1500);
-
-        weekDataSummary = priv.getWeekAvgDataPoints(rawData);
+        weekDataSummary = priv.getWeekAvgDataPoints(this.rawData);
         dayDataSummary = weekDataSummary.dailySummary;
         hourDataSummary = dayDataSummary.hourlySummary;
-        this.rawData = rawData;
 
     }
 

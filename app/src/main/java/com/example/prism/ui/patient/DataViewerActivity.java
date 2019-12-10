@@ -17,6 +17,7 @@ import com.example.prism.DatePickerFragment;
 import com.example.prism.R;
 import com.example.prism.databinding.DataViewerActivityBinding;
 import com.example.prism.model.Routine;
+import com.example.prism.model.TimeSeriesPrivatizer;
 
 import java.util.Calendar;
 
@@ -26,6 +27,7 @@ public class DataViewerActivity extends AppCompatActivity implements BarChartFra
     DataViewerActivityBinding bi;
     BarChartFragment fragment;
     Routine routine;
+
     private Spinner spnDataResolution;
 
     @Override
@@ -41,8 +43,11 @@ public class DataViewerActivity extends AppCompatActivity implements BarChartFra
             routine = intentIncoming.getParcelableExtra("ROUTINE");// OK
         }
 
+        setRoutineData(routine);
+
         if (savedInstanceState == null) {
             fragment = BarChartFragment.newInstance();
+            fragment.rawData = routine.rawData;
             fragment.mListener = this;
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, fragment)
@@ -74,6 +79,11 @@ public class DataViewerActivity extends AppCompatActivity implements BarChartFra
 
         spnDataResolution.setOnItemSelectedListener(this);
 
+    }
+
+    private void setRoutineData(Routine routine){
+        TimeSeriesPrivatizer priv = new TimeSeriesPrivatizer();
+        routine.rawData = priv.generateDummyData(100, 1500);
     }
 
     public void onItemSelected(AdapterView<?> parent, View view,

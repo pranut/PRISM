@@ -18,7 +18,6 @@ public class WeekDataSummary {
 
         //TODO this code can be simplified
         ArrayList<DataSummary> daySummary = dailySummary.dataPoints;
-
         ArrayList<DataSummary> daysWithinWeek = new ArrayList<>();
 
         int dayIndexEnd;

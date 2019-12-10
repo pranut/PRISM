@@ -21,9 +21,11 @@
                 android:layout_height="?attr/actionBarSize">
 
                 <Button
+                    android:id="@+id/btnSendReport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:onClick="sendReport"
                     android:text="Send" />
 
             </androidx.appcompat.widget.Toolbar>
