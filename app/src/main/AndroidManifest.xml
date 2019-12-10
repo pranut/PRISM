@@ -28,6 +28,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TestActivity"
+            android:largeHeap="true"
+            android:keepScreenOn="true">
+        </activity>
+        <activity
+            android:name=".DvprsEntry"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"
+            android:largeHeap="true"
+            android:keepScreenOn="true">
+        </activity>
+
+        <activity
+            android:name=".DvprsLast"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"
+            android:largeHeap="true" >
+        </activity>
     </application>
 
 </manifest>
