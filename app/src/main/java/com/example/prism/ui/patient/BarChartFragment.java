@@ -101,6 +101,7 @@ public class BarChartFragment extends Fragment implements OnChartValueSelectedLi
 
         TimeSeriesPrivatizer priv = new TimeSeriesPrivatizer();
         ArrayList<TimeEvent> rawData = priv.generateDummyData(100, 1500);
+
         weekDataSummary = priv.getWeekAvgDataPoints(rawData);
         dayDataSummary = weekDataSummary.dailySummary;
         hourDataSummary = dayDataSummary.hourlySummary;

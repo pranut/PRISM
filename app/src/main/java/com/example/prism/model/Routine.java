@@ -11,6 +11,8 @@ public class Routine implements Parcelable {
     private boolean enabled;
     private int routineID;
 
+    public ArrayList<TimeEvent> rawData;
+
     private String description;
     private boolean isExpanded;
     private int image;

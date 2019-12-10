@@ -4,31 +4,49 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.prism.databinding.ActivityMainScreenPatientBinding;
+import com.example.prism.model.Routine;
+import com.example.prism.model.TimeEvent;
+import com.example.prism.model.TimeSeriesPrivatizer;
 import com.example.prism.ui.patient.WeeklyReport;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
-import androidx.fragment.app.DialogFragment;
+import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
-import android.widget.TextView;
+
 
 import com.example.prism.ui.patient.SectionsPagerAdapter;
 
+import java.util.ArrayList;
+
 public class MainScreenPatient extends AppCompatActivity {
+
+    ArrayList<Routine> routines;
+
+    ActivityMainScreenPatientBinding bi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_screen_patient);
+
+        bi = DataBindingUtil.setContentView(this, R.layout.activity_main_screen_patient);
+
+        Bundle extras = getIntent().getExtras();
+        Intent intentIncoming = getIntent();
+        if(extras != null) {
+            routines = intentIncoming.getParcelableExtra("ROUTINES");// OK
+        }
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
 
-        ViewPager viewPager = findViewById(R.id.vpContentItems);
+        ViewPager viewPager = bi.vpContentItems;
         viewPager.setAdapter(sectionsPagerAdapter);
+
         TabLayout tabs = findViewById(R.id.tabPatient);
         tabs.setupWithViewPager(viewPager);
 
@@ -46,10 +64,14 @@ public class MainScreenPatient extends AppCompatActivity {
                         .setAction("Action", listener).show();
             }
         });
+
+        // Setting floating button behavior
+        FloatingActionButton fab2 = bi.fab2;
+
+
     }
 
     private View.OnClickListener createClickEvent(final Context context){
-
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,8 +79,6 @@ public class MainScreenPatient extends AppCompatActivity {
                 startActivity(myIntent);
             }
         };
-
         return clickListener;
     }
-
 }

@@ -9,6 +9,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import com.example.prism.model.Routine;
+import com.example.prism.model.TimeEvent;
+import com.example.prism.model.TimeSeriesPrivatizer;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText edtUserID, edt_password;
@@ -28,11 +34,31 @@ public class MainActivity extends AppCompatActivity {
 
         if(user.equals("phy")){
             Intent myIntent = new Intent(this, MainScreenPhysician.class);
+
+
             startActivity(myIntent);
         } else{
             Intent myIntent = new Intent(this, MainScreenPatient.class);
+
+            ArrayList<Routine> routines = createDummyDate();
+            myIntent.putExtra("ROUTINES", routines);
+
             startActivity(myIntent);
         }
+    }
+
+    private ArrayList<Routine> createDummyDate(){
+
+        // Initialize contacts
+        ArrayList<Routine> routines = Routine.createRoutinesList(20);
+
+        TimeSeriesPrivatizer priv = new TimeSeriesPrivatizer();
+
+        for(Routine r : routines){
+            r.rawData = priv.generateDummyData(100, 1500);
+        }
+
+        return routines;
     }
 
 }
