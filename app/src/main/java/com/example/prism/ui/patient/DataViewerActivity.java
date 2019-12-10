@@ -1,8 +1,10 @@
 package com.example.prism.ui.patient;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.View;
@@ -13,21 +15,34 @@ import android.widget.TextView;
 
 import com.example.prism.DatePickerFragment;
 import com.example.prism.R;
+import com.example.prism.databinding.ContentWeeklyReportBinding;
+import com.example.prism.databinding.DataViewerActivityBinding;
+import com.example.prism.domain.Routine;
 import com.github.mikephil.charting.charts.BarChart;
 
 import java.util.Calendar;
 
 public class DataViewerActivity extends AppCompatActivity implements BarChartFragment.OnFragmentInteractionListener, AdapterView.OnItemSelectedListener{
 
-    DialogFragment newFragment = new DatePickerFragment();
+
+    DataViewerActivityBinding bi;
     BarChartFragment fragment;
-    BarChart chart;
+    //BarChart chart;
+    Routine routine;
     private Spinner spnDataResolution;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.data_viewer_activity);
+
+        bi = DataBindingUtil.setContentView(this, R.layout.data_viewer_activity);
+
+        Bundle extras = getIntent().getExtras();
+        routine = new Routine();
+        Intent intentIncoming = getIntent();
+        if(extras != null) {
+            routine = intentIncoming.getParcelableExtra("ROUTINE");// OK
+        }
 
         if (savedInstanceState == null) {
             fragment = BarChartFragment.newInstance();
@@ -37,10 +52,11 @@ public class DataViewerActivity extends AppCompatActivity implements BarChartFra
                     .commitNow();
         }
 
-        chart = findViewById(R.id.barChart);
+        //chart =  findViewById(R.id.barChart);
 
-        final TextView startDate = findViewById(R.id.txtStartDate);
-        final TextView endDate = findViewById(R.id.txtEndDate);
+        bi.tvDataViewerTitle.setText(routine.getName());
+        final TextView startDate = bi.txtStartDate;
+        final TextView endDate = bi.txtEndDate;
 
         startDate.setOnClickListener(createClickEvent(startDate));
         endDate.setOnClickListener(createClickEvent(endDate));
@@ -50,7 +66,7 @@ public class DataViewerActivity extends AppCompatActivity implements BarChartFra
         startDate.setText(sdf.format(cal.getTime()));
         endDate.setText(sdf.format(cal.getTime()));
 
-        spnDataResolution = findViewById(R.id.spnPresetDates);
+        spnDataResolution = bi.spnPresetDates;
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.date_presets, android.R.layout.simple_spinner_item);
@@ -89,8 +105,6 @@ public class DataViewerActivity extends AppCompatActivity implements BarChartFra
 
     @Override
     public void onFragmentInteraction(int dataResolutionView) {
-
         spnDataResolution.setSelection(dataResolutionView);
-
     }
 }

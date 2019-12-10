@@ -64,5 +64,14 @@
         <item>Yearly</item>
     </string-array>
 
+    <string-array name="routine">
+        <item>temp1</item>
+        <item>temp2y</item>
+        <item>temp3</item>
+    </string-array>
+
+    <string name="title_activity_weekly_report">WeeklyReport</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
 
 </resources>

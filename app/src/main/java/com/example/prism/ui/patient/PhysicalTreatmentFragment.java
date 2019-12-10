@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prism.R;
-import com.example.prism.domain.Routines;
+import com.example.prism.domain.Routine;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ public class PhysicalTreatmentFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Routines> routines;
+    private ArrayList<Routine> routines;
 
     public static PhysicalTreatmentFragment newInstance(int index) {
         PhysicalTreatmentFragment fragment = new PhysicalTreatmentFragment();
@@ -62,7 +62,7 @@ public class PhysicalTreatmentFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         // Initialize contacts
-        routines = Routines.createRoutinesList(20);
+        routines = Routine.createRoutinesList(20);
 
         // Create adapter passing in the sample user data
         RoutinesListAdapter adapter = new RoutinesListAdapter(routines, container.getContext());

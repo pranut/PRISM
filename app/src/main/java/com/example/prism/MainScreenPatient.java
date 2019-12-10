@@ -1,15 +1,20 @@
 package com.example.prism;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.prism.ui.patient.WeeklyReport;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.prism.ui.patient.SectionsPagerAdapter;
 
@@ -27,16 +32,31 @@ public class MainScreenPatient extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabPatient);
         tabs.setupWithViewPager(viewPager);
 
-        // Setting floating email button behavior
+        // Setting floating button behavior
         FloatingActionButton fab = findViewById(R.id.fab);
+
+        final View.OnClickListener listener = createClickEvent(this);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Send notification to Physician", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Preparing weekly report...", Snackbar.LENGTH_LONG)
+                        .setAction("Action", listener).show();
             }
         });
     }
 
+    private View.OnClickListener createClickEvent(final Context context){
+
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(context, WeeklyReport.class);
+                startActivity(myIntent);
+            }
+        };
+
+        return clickListener;
+    }
 
 }

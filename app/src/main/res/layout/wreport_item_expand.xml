@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/parent"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#fff"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:minHeight="?attr/actionBarSize"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="wrap_content" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_menu_agenda" />
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mutufa Ansari"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#37474F" />
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/viewMoreBtn"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/arrow_down_float"
+                android:tint="#666666" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f2f2f2" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutExpand"
+            android:layout_width="match_parent"
+            android:layout_height="158dp"
+            android:layout_below="@id/parent"
+            android:background="#f7f7f7"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btnReportData"
+                android:layout_width="87dp"
+                android:layout_height="37dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="12dp"
+                android:text="Data"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Spinner
+                android:id="@+id/spnShareLevel"
+                android:layout_width="180dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txvGranularityLabel" />
+
+            <TextView
+                android:id="@+id/txvGranularityLabel"
+                android:layout_width="95dp"
+                android:layout_height="22dp"
+                android:layout_margin="15dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="24dp"
+                android:text="Share Level:"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/txvBriefLabel"
+                android:layout_width="95dp"
+                android:layout_height="22dp"
+                android:layout_margin="15dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="16dp"
+                android:text="Description:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txvStatusLabel"
+                android:layout_width="56dp"
+                android:layout_height="21dp"
+                android:layout_margin="15dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:text="Status:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvBriefLabel" />
+
+            <TextView
+                android:id="@+id/txvStatus"
+                android:layout_width="68dp"
+                android:layout_height="20dp"
+                android:layout_margin="15dp"
+                android:layout_marginStart="16dp"
+                android:text="Status"
+                app:layout_constraintStart_toEndOf="@+id/txvStatusLabel"
+                app:layout_constraintTop_toTopOf="@+id/txvStatusLabel" />
+
+            <TextView
+                android:id="@+id/txvBrief"
+                android:layout_width="282dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="Desc"
+                app:layout_constraintStart_toEndOf="@+id/txvBriefLabel"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+</layout>
