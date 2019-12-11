@@ -74,4 +74,33 @@
     <string name="title_activity_main2">Main2Activity</string>
 
 
+    <string name="_0">0</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="_10">10</string>
+    <string name="lastValue">Test</string>
+    <string name="dvprsIntroText">Please select the value that corresponds with your current pain level:</string>
+    <string name="dvprsActivityText">Select the one number that describes how, during the past 24 hours, pain has interfered with your usual ACTIVITY?</string>
+    <string name="dvprsSleepText">Select the one number that describes how, during the past 24 hours, pain has interfered with your usual SLEEP?</string>
+    <string name="dvprsMoodText">Select the one number that describes how, during the past 24 hours, pain has affected your MOOD?</string>
+    <string name="dvprsStressText">Select the one number that describes how, during the past 24 hours, pain has contributed to your STRESS?</string>
+    <string name="dvprsQA1Text">I felt this scale was easy to understand to rate my pain.</string>
+    <string name="dvprsQA2Text">I felt this scale was easy to use to rate my pain.</string>
+    <string name="dvprsQA3Text">I felt this scale was better than the scale my nurses and doctors use to ask me about my pain.</string>
+    <string name="dvprsAns1">Strongly Disagree</string>
+    <string name="dvprsAns2">Tend to Disagree</string>
+    <string name="dvprsAns3">No Opinion</string>
+    <string name="dvprsAns4">Tend to Agree</string>
+    <string name="dvprsAns5">Strongly Agree</string>
+    <string name="dvprsEnd">Thank you for completing the Pain Rating Scale.</string>
+    <string name="downloading">Currently downloading: </string>
+
+
 </resources>

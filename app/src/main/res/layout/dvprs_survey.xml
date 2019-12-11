@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/surveyMain">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <TextView
+        android:text="@string/dvprsIntroText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textSize="30dp"
+        android:paddingLeft="50dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp" />
+
+    <com.example.prism.TouchImageView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/img"
+        android:src="@drawable/scale_dvprs"
+        android:layout_marginBottom="90dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:id="@+id/test"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginRight="90dp"
+        android:layout_alignParentBottom="true" >
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs0_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs1_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs2_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+                />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs3_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs4_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs5_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs6_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs7_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs8_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs9_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/dvprs10_shading"
+                android:background="@drawable/background"
+                android:layout_weight=".9"
+                />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/backarrow"
+        android:layout_marginLeft="20dp"
+        android:width="180dp"
+        android:height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="150dp"
+        android:id="@+id/backButton" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/forwardarrow"
+        android:layout_marginRight="20dp"
+        android:width="180dp"
+        android:height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="150dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/submitButton" />
+
+</RelativeLayout>

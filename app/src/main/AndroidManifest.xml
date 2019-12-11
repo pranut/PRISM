@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.patient.KneeExercise"></activity>
         <activity
             android:name=".ui.patient.WeeklyReport"
             android:label="@string/title_activity_weekly_report"
@@ -28,6 +29,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TestActivity"
+            android:keepScreenOn="true"
+            android:largeHeap="true"></activity>
+        <activity
+            android:name=".DvprsEntry"
+            android:keepScreenOn="true"
+            android:largeHeap="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".DvprsLast"
+            android:largeHeap="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
