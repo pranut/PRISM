@@ -71,7 +71,7 @@ public class MainScreenPatient extends AppCompatActivity {
             public void onClick(View view) {
                 Intent myIntent = new Intent(getApplication(), TestActivity.class);
                 //myIntent.putExtra("key", value); //Optional parameters
-                getApplication().startActivity(myIntent);
+                view.getContext().startActivity(myIntent);
             }
         });
 

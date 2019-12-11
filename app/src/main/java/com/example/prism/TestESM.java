@@ -168,6 +168,7 @@ public class TestESM implements AwareTest {
     private void launch(Context context) {
         if(context != null) {
             Intent myIntent = new Intent(context, DvprsEntry.class);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //myIntent.putExtra("key", value); //Optional parameters
             context.startActivity(myIntent);
             painChange(context);
