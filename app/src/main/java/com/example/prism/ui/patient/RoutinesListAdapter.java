@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.prism.R;
 import com.example.prism.databinding.ListItemRoutinesBinding;
@@ -41,6 +42,14 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
 
         holder.bi.txtItemName.setText(routine.getName());
 
+        holder.bi.txtItemName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View viewIn) {
+                Intent myIntent = new Intent(context, KneeExercise.class);
+                context.startActivity(myIntent);
+            }
+        });
+
         Button btnReport = holder.bi.btnRoutineReport;
 
         btnReport.setText(routine.isOnline() ? "Record" : "Complete");
@@ -68,6 +77,7 @@ public class RoutinesListAdapter extends RecyclerView.Adapter<RoutinesListAdapte
                 context.startActivity(myIntent);
             }
         });
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
