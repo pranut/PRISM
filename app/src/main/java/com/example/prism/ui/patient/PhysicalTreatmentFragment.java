@@ -1,5 +1,6 @@
 package com.example.prism.ui.patient;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,14 +31,17 @@ public class PhysicalTreatmentFragment extends Fragment {
 
     public PhysicalTreatmentFragment(){}
     public PhysicalTreatmentFragment(Routines routines){
+
         this.routines = routines;
+
     }
 
     public static PhysicalTreatmentFragment newInstance(Routines routines) {
         PhysicalTreatmentFragment fragment = new PhysicalTreatmentFragment(routines);
-//        Bundle bundle = new Bundle();
-//        bundle.putInt(ARG_SECTION_NUMBER, index);
-//        fragment.setArguments(bundle);
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("Routines", routines);
+        fragment.setArguments(bundle);
 
         return fragment;
     }
@@ -46,11 +50,10 @@ public class PhysicalTreatmentFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
-//        int index = 1;
-//        if (getArguments() != null) {
-//            index = getArguments().getInt(ARG_SECTION_NUMBER);
-//        }
-//        pageViewModel.setIndex(index);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            this.routines = bundle.getParcelable("Routines");
+        }
     }
 
     @Override
